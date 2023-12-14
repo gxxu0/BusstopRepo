@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="busstop.example.sample.service.impl.BusMapper">
+
+	<resultMap id="busVO" type="busstop.example.sample.service.BusVO">
+		<result property="nodeId" column="node_id"/>
+		<result property="nodeNm" column="node_nm"/>
+		<result property="gpsLati" column="gps_lati"/>
+		<result property="gpsLong" column="gps_long"/>
+		<result property="collectdTime" column="collectd_time"/>
+		<result property="nodeMobileId" column="node_mobile_id"/>
+		<result property="cityCd" column="city_cd"/>
+		<result property="cityName" column="city_name"/>
+		<result property="adminNm" column="admin_nm"/>
+		<result property="tDate" column="tdate"/>
+	</resultMap>
+
+	<insert id="insertBusstop" parameterType="BusVO">
+
+			INSERT INTO BUSSTOP
+				( NODE_ID,
+					NODE_NM,
+					GPS_LATI,
+					GPS_LONG,
+					COLLECTD_TIME,
+					NODE_MOBILE_ID,
+					CITY_CD,
+					CITY_NAME,
+					ADMIN_NM,
+					TDATE 
+				)
+			VALUES ( 
+				#{nodeId}
+				,#{nodeNm}
+				, #{gpsLati}
+				, #{gpsLong}
+				, #{collectdTime}
+				, #{nodeMobileId}
+				, #{cityCd}
+				, #{cityName}
+				, #{adminNm}
+				, #{tDate} )
+
+	</insert>
+	
+	<update id="updateBusstop">
+
+			UPDATE BUSSTOP
+			SET NODE_ID=#{nodeId}
+				, NODE_NM=#{nodeNm}
+				, GPS_LATI=#{gpsLati}
+				, GPS_LONG=#{gpsLong}
+				, COLLECTD_TIME=#{collectdTime}
+				, NODE_MOBILE_ID=#{nodeMobileId}
+				, CITY_CD=#{cityCd}
+				, CITY_NAME=#{cityName}
+				, ADMIN_NM=#{adminNm}
+				  WHERE NODE_ID=#{nodeId}
+
+	</update>
+
+	<delete id="deleteBusstop">
+
+			DELETE FROM BUSSTOP
+			WHERE NODE_ID=#{nodeId}
+
+	</delete>
+
+	<select id="selectBusstop" resultMap="busVO">
+
+			SELECT
+				NODE_ID,
+					NODE_NM,
+					GPS_LATI,
+					GPS_LONG,
+					COLLECTD_TIME,
+					NODE_MOBILE_ID,
+					CITY_CD,
+					CITY_NAME,
+					ADMIN_NM,
+					TDATE 
+			FROM BUSSTOP
+			WHERE NODE_ID=#{nodeId}
+
+	</select>
+
+	<select id="selectBusstopList" parameterType="pageVO">
+
+			SELECT
+				NODE_ID,
+					NODE_NM,
+					GPS_LATI,
+					GPS_LONG,
+					COLLECTD_TIME,
+					NODE_MOBILE_ID,
+					CITY_CD,
+					CITY_NAME,
+					ADMIN_NM,
+					TDATE 
+			FROM BUSSTOP
+			WHERE 1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+		        <choose>
+		            <when test="searchCondition == 0">
+						AND	NODE_ID LIKE '%' || #{searchKeyword} || '%'
+					</when>
+		            <when test="searchCondition == 1">
+						AND	NODE_NM LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+			ORDER BY NODE_ID ASC
+			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+
+	<select id="selectBusstopListTotCnt" parameterType="pageVO" resultType="int">
+
+			SELECT COUNT(*) totcnt
+			FROM SAMPLE
+			WHERE 1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+		        <choose>
+		            <when test="searchCondition == 0">
+						AND NODE_ID LIKE '%' || #{searchKeyword} || '%'
+					</when>
+		            <when test="searchCondition == 1">
+						AND	NODE_NM LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+	</select>
+	
+
+	
+
+</mapper>

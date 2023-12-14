@@ -1,0 +1,795 @@
+* {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+body {
+    display: block;
+    margin: 0 auto;
+}
+main{
+    height: 99.9433vh;
+}
+.table-title{
+	font-size: 11px;
+	border-bottom: 1px solid #d5d5d5;
+    padding-bottom: 3px;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    width: 21vh;
+}
+#section-Box {
+	display: flex;
+	justify-content: space-between
+}
+
+#listForm2 {
+	display: flex;
+	flex-direction: column;
+}
+
+#title {
+	height: 100%;
+	background-color: #394d3f; 
+	border-bottom: 1px solid gray;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 10px 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  
+}
+#toggleBottom{
+	margin: 4vh;
+    font-weight: bold;
+    width: 3.3rem;
+    background: url(../../css/busstop/chevron-down.svg) no-repeat;
+    background-size: 22px;
+    background-position: center center;
+}
+#title a {
+	text-decoration: none;
+	font-weight: bold;
+}
+#section-Box a {
+	text-decoration: none;
+    font-weight: bold;
+    font-size: 11px;
+    color: white;
+}
+li, a {
+	list-style: none;
+	font-weight: bold;
+	color: black;
+}
+
+#button {
+	width: 200px;
+}
+
+a:hover {
+	color: gray;
+}
+
+#search {
+	display: inline-flex;
+    align-items: center;
+    margin: 0 2rem;
+    justify-content: space-between;
+}
+
+#registerBtnBox, #modifyBtnBox {
+	display: inline-flex;
+	margin: 0 auto;
+	width: 100%;
+	justify-content: center;
+}
+
+#registerBtnBox button {
+	
+}
+
+#search li {
+	margin-right: 10px;
+}
+#searchCondition{
+	width: 14vh;
+    height: 3vh;
+    border: 1px solid #d8d8d8;
+    border-radius: 10px;
+	font-weight:bold;
+	
+}
+#searchKeyword{
+	width: 20vh;
+    height: 3vh;
+    border: 1px solid #d8d8d8;
+    border-radius: 10px;
+}
+#search div {
+	font-size: 13px;
+}
+
+#searchRec {
+	text-align: right;
+	font-weight: bold;
+	margin: 10px 0;
+}
+
+.page_tag {
+	float: left;
+}
+
+.tbtd_caption {
+	font-weight: bold;
+	background-color: #A1C4B4;
+}
+
+thead th {
+	background-color: #A1C4B4;
+}
+
+#section-table {
+    width: 80vh;
+    margin-top: 3rem;
+}
+
+#table-Box {
+	margin: 1.5rem 0.5rem 0 0.5rem;
+}
+
+table {
+	border-bottom: 1px solid #D8D8D8;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+th, td {
+	padding: 5px 0;
+	border-bottom: 1px solid #D8D8D8;
+}
+
+table thead th {
+	font-size: 13px;
+	padding: 7px 3px;
+    white-space: nowrap;
+}
+
+table .trTable .memList td {
+	font-size: 13px;
+	padding: 5px;
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	max-width: 65px; 
+	overflow: hidden;
+}
+table .trTable #toggleTable td{
+	font-size: 13px;
+	padding: 5px;
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	max-width: 65px; 
+	overflow: hidden;
+}
+table .trTable .memList td .no{
+	font-weight: bold;
+}
+.memList-first td,.memList-second td {
+	font-size: 13px;
+	padding: 5px;
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	max-width: 65px; 
+	overflow: hidden;
+}
+.memList-first, .memList-second{
+	
+	opacity: 0.6;
+}
+.memList-first td{
+	background-color: #d3ede1;
+	font-weight: bold;
+	
+}
+#searchBtn, #mapDicOnOff, #modifyBtn, #deleteBtn, #registerBtn,
+	#resetBtn {
+	background: #A1C4B4;
+	border-radius: 5px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	position: relative;
+	display: inline-block;
+	outline: none;
+	border: none;
+	margin: 5px;
+	text-decoration: none;
+	font-size: 13px;
+	padding: 3px;
+}
+
+#section-map {
+	width: 80vh;
+	margin-top: 3rem;
+	border-left: 1px solid #dcdcdc;
+	padding: 0 5px;
+}
+
+#baseLayer {
+	right: 10px;
+	top: 10px;
+	z-index: 1;
+	margin-bottom: 10px;
+	font-weight:bold;
+	width: 15vh;
+    height: 3vh;
+    border: 1px solid #d8d8d8;
+    border-radius: 10px;
+}
+
+.tbtd_caption {
+	text-align: right;
+	padding: 0 10px;
+}
+
+.tbtd_caption label {
+	font-size: 15px;
+}
+
+.tbtd_content input, .tbtd_content select:first-child {
+	margin-left: 10px;
+}
+.trTable{
+	background-color: #f3fdf8;
+}
+#table-Box-busTransit > table > thead > tr > th{
+	background-color: #A1C4B4;
+}
+.trTablebusTransit > tr > td{
+	font-size: 13px;
+}
+.trTablebusTransit  {
+    background-color: #f3fdf8;
+}
+/**************/
+
+/*버스정류장 위치 등록*/
+#registerBody > form > h3, #modifyBody > form > h3 {
+	padding: 0 10px;
+	margin: 0 auto;
+	text-align: center;
+	width: 200px;
+}
+
+#nodeId, .mGpsLati, .mGpsLong, .mCityCd, .mAdminNm, .mCollectdTime,
+	.mDate, #tDate:hover {
+	cursor: default;
+}
+
+#modifyTable .mGpsLati, #modifyTable .mGpsLong:hover {
+	cursor: text;
+}
+
+#detailForm, #modifyForm {
+	background-color: #e2ece9;
+	padding: 10px;
+}
+
+#registerTable, #modifyTable {
+	margin: 10px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	display: flex;
+	
+}
+/*등록스크롤*/
+#registerBody #content_pop{
+	max-height: 492px;
+	overflow-y: auto;
+	direction: ltr;
+	scrollbar-color: #d4aa70 #e4e4e4;
+	scrollbar-width: thin;
+}
+/*수정스크롤*/
+#modifyBody #content_pop{
+  max-height: 525px;
+  overflow-y: auto;
+  direction: ltr;
+  scrollbar-color: #d4aa70 #e4e4e4;
+  scrollbar-width: thin;
+	
+}
+#content_pop::-webkit-scrollbar {
+  width: 15px;
+}
+#content_pop::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+#content_pop::-webkit-scrollbar-thumb {
+  border-radius: 100px;  
+  background: #6D8E7F; 
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+  opacity: 0.6;
+
+}
+#rNodeNm, 
+#rGpsLati, 
+#rGpsLong, 
+#rNodeMobileId, 
+#rAdminNm,
+#rCityCd,
+#rCityName,
+#rTDate{
+	border: 0;
+	outline: none;
+	box-shadow: none;
+	display: block;
+	height: 60px;
+	line-height: 30px;
+	padding: 5px 15px;
+	border-bottom: 1px solid #eee;
+	font-size: 13px;
+	background-color: #ffffff;
+	width: 54%;
+	color: #757575;
+	border-radius: 10px;
+	margin-bottom: 5px;
+}
+#rCityCd #sidoOp4{
+	margin-top: 7px;
+}
+
+#rGpsLati,
+#rGpsLong,
+#rTDate{
+	height: 90px;
+}
+
+#rNodeNm > input, 
+#rGpsLati > input, 
+#rGpsLong > input, 
+#rNodeMobileId > input, 
+#rCityName > input, 
+#rTDate > input{
+	border : 0;
+	display: block;
+	height: 50px;
+	margin: 5px auto;
+	line-height: 30px;
+	font-size: 13px;
+	background-color: #ffffff;
+	width: 93%;
+	color: #000000;
+	padding-left: 10px;
+	border-radius: 10px;
+	margin-bottom: 5px;
+}
+
+#rGpsLati > input, 
+#rGpsLong > input,
+#rTDate > input{
+	background-color: #e9e9e9;
+	color: #6e6e6e;
+	border-radius: 10px;
+	margin-bottom: 5px;
+}
+
+/*버스정류장 위치 수정*/
+#modifyTable #mNodeId{
+	border-radius: 10px 10px 0 0;
+}
+
+#modifyTable #mTDate{
+	border-radius: 0 0 10px 10px;
+}
+
+#mNodeId,
+#mNodeNm, 
+#mGpsLati, 
+#mGpsLong, 
+#mNodeMobileId, 
+#mCollectdTime,
+#mAdminNm,
+#mCityCd,
+#mCityName,
+#mTDate{
+	border: 0;
+	outline: none;
+	box-shadow: none;
+	display: block;
+	height: 90px;
+	line-height: 30px;
+	padding: 5px 15px;
+	border-bottom: 1px solid #eee;
+	font-size: 13px;
+	background-color: #ffffff;
+	width: 50%;
+	color: #757575;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+#mNodeId > input,
+#mNodeNm > input, 
+#mGpsLati > input, 
+#mGpsLong > input, 
+#mNodeMobileId > input, 
+#mCollectdTime > input,
+#mmadminNm,
+#adminModifyReturn,
+#mCityCd > input,
+#mCityName > input,
+#mTDate > input{
+	border: 0;
+	display: block;
+	height: 50px;
+	margin: 5px auto;
+	line-height: 30px;
+	font-size: 13px;
+	background-color: #ffffff;
+	width: 95%;
+	color: #000000;
+	padding-left: 10px;
+	border-radius: 10px;
+	border-bottom: 1px solid #f1e9e9;
+	margin-bottom: 5px;
+}
+
+#adminModifyReturn{
+	align-items: center;
+}
+
+#mNodeId > input,
+#mCollectdTime > input,
+#mCityCd > input,
+#mTDate > input{
+	outline: none;
+	background-color: #f1f1f1;
+	color: #6e6e6e;
+	border-radius: 10px;
+	margin-bottom: 5px;
+	opacity: 0.5;
+}
+#mAdminNm{
+	height: 100px;
+}
+#adminModify{
+	display: flex;
+}
+#adminModifyBtn{
+	margin-top:2px;
+}
+/*선택위치*/
+#click-Vworld{
+	margin-left: 2px;
+}
+
+/*************************************/
+
+.paging {
+	margin: 0 3rem 0 0rem; 
+    top: 30rem;
+    position: absolute;
+    left: 25vh;
+    top: 51vh;
+}
+
+.ol-viewport {
+	width: 50%;
+}
+
+#popup {
+	width: auto;
+	height: auto;
+	border-radius: 20px;
+	font-size: 11px;
+	background-color: #ffffff;
+	padding: 10px;
+}
+
+#popup:hover {
+	curser: pointer;
+}
+
+#content_pop {
+	margin: 10px;
+}
+
+#popup-table {
+	margin: 10px 0;
+}
+
+#popup-table .tbtd_caption {
+	text-align: right;
+	padding: 0 10px;
+}
+
+#mapContent{
+	display: block;
+    position: relative;
+    width: 2rem;
+    background: url(../../css/busstop/info-circle.svg) no-repeat;
+    height: 2rem;
+    background-size: 25px;
+}
+
+#mapContent:hover{
+	display: block;
+    position: relative;
+    width: 2rem;
+    background: url(../../css/busstop/info-circle-filled.svg) no-repeat;
+    height: 2rem;
+    background-size: 25px;
+    cursor:pointer;
+	
+}
+#mapContent-text{
+	background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 10px;
+    z-index: 999999;
+    color: #000000;
+    font-weight: 700;
+    box-shadow: 10px 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+#geoCoding {
+	font-weight: bold;
+	font-size: 14px;
+	margin: 0.5rem 0;
+}
+
+#popup-Hover-content {
+	font-weight: bold;
+}
+#img-poi{
+	display: inline-block;
+    position: relative;
+    width: 1.2rem;
+    background: url(../../css/busstop/map-pin-filled.svg) no-repeat;
+    height: 15px;
+    background-size: 15px;
+}
+#title > div{
+	display:flex;
+}
+#title-busStop{
+	    padding: 3rem 0rem 0rem 2rem;
+}
+#title-busStop .img{
+	display: block;
+    width: 2.5rem;
+    background: url(../../css/busstop/bus.png) no-repeat;
+    height: 27px;
+    background-size: 27px;
+	
+}
+#title-busStop .text{
+    font-weight: bold;
+    left: 5vh;
+    width: auto;
+    font-size: 2.5vh;
+}
+#clickChart .img{
+	display: block;
+    width: 2.5rem;
+    background: url(../../css/busstop/chart-bar.svg) no-repeat;
+    height: 27px;
+    background-size: 27px;
+    
+	filter: invert(100%) sepia(0%) saturate(7490%) hue-rotate(323deg) brightness(104%) contrast(101%);
+}
+#clickChart .text{
+    font-weight: bold;
+    top: -0.3vh;
+    left: 5vh;
+    font-size: 2.5vh;
+    color: white;
+}
+#clickChart{
+	margin-top: 2rem;
+	margin-left: 2rem;
+    border-radius: 70px 0 0 70px;
+    padding: 0.7rem;
+} 
+#clickChart-table .img{
+	display: block;
+    width: 2.5rem;
+    background: url(../../css/busstop/table.svg) no-repeat;
+    height: 27px;
+    background-size: 27px;
+	filter: invert(0%) sepia(100%) saturate(580%) hue-rotate(159deg) brightness(89%) contrast(107%);
+}
+#clickChart-table .text{
+    font-weight: bold;
+    top: -0.3vh;
+    left: 5vh;
+    font-size: 2.5vh;
+    color: black;
+}
+#clickChart-table{
+	margin-top: 2rem;
+	margin-left: 2rem;
+    border-radius: 70px 0 0 70px;
+    padding: 0.7rem;
+    background-color: white;
+} 
+#clickChart .img:hover, #clickChart .text:hover, #clickChart-table .text:hover{
+	cursor: pointer;
+}
+#marker-popup-close{
+	margin-right: 0.5rem;
+    float: right;
+    margin-right: 0.5rem;    
+    position: relative;
+}
+#marker-popup-close:hover{
+	font-weight: bold;
+	cursor: pointer;
+}
+.chart{
+  max-width: 824px;
+  max-height: 1024px;
+  display: flex;
+  flex-direction: column;
+}
+#myChart{
+  max-width: 804px;
+  max-height: 1204px;
+}
+#doughnut-chart{
+  max-width: 404px;
+  max-height: 404px;
+  margin: 2rem 0;
+}
+canvas {
+  max-width: 100%;
+}
+#section-chart{
+	width: 44%;
+    position: absolute;
+    background-color: white;
+    top: 5vh;
+    left: 28.3vh;
+    height: 78%;
+    display: flex;
+    overflow: auto;
+    padding: 1rem;
+    box-shadow: 5px 0px 5px -2px gray;
+    border-radius: 0px 10px 10px 0;
+	
+}
+#section-chart::-webkit-scrollbar {
+    width: 10px;
+}
+#section-chart::-webkit-scrollbar-thumb {
+    background-color: #536d4e;
+    border-radius: 20px;
+}
+#section-chart::-webkit-scrollbar-track {
+    background-color: #cce3cc;
+    margin: 2rem;border-radius: 20px;
+}
+#section-chart-doughnut{
+	width: 84%;
+    position: absolute;
+    background-color: white;
+    top: 17.5vh;
+    left: 28.3vh;
+    height: 78%;
+    display: flex;
+    overflow: auto;
+    padding: 1rem;
+    box-shadow: 5px 0px 5px -2px gray;
+    border-radius: 0px 10px 10px 0;
+}
+#parkPannel-close, #parkPannel-close-doughnut{
+	right: 0.1rem;
+    top: 2rem;
+    border: 0;
+    position: absolute;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 3.3rem;
+    background: url(../../css/busstop/square-rounded-x-filled.svg) no-repeat;
+    height: 27px;
+    background-size: 22px;
+    filter: invert(24%) sepia(21%) saturate(476%) hue-rotate(85deg) brightness(101%) contrast(89%);
+}
+#parkPannel-close:hover, #parkPannel-close-doughnut:hover{
+	cursor: pointer;
+}
+#chartTableDiv {
+    display: none;
+    position: fixed;
+    /* top: 11rem; */
+    /* left: 44rem; */
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    overflow: auto;
+    height: 400px;
+    background-color: #ffffff;
+    opacity: 0.7;
+    border-radius: 14px;
+    padding: 1rem;
+}
+#chartTableDiv #chartTable tr:first-child > th{
+	border-bottom: 3px solid white;
+	
+}
+#chartTableDiv #chartTable tr th,#chartTableDiv #chartTable tr td{
+    background-color: #ffffff;
+    font-weight: bold;
+	text-align: center;    
+	padding: 0.5rem 1rem;
+	border-bottom: 1px solid white;
+}
+
+#chartTableDiv::-webkit-scrollbar {
+    width: 10px;
+}
+#chartTableDiv::-webkit-scrollbar-thumb {
+    background-color: #536d4e;
+    border-radius: 20px;
+    opacity: 0.7;
+}
+#chartTableDiv::-webkit-scrollbar-track {
+    background-color: #ffffff;
+    margin: 2rem;
+    border-radius: 20px;
+}
+.prev_end a{
+	text-decoration: none;
+    font-weight: bold;
+    font-size: 11px;
+    color: black !important;
+}
+.prev_end a:hover{
+    color: gray !important;
+}
+#table-Box{ 
+	height: 200px; 
+	overflow: auto;
+	
+}
+#table-Box-busTransit{
+	height: 160px; 
+	overflow: auto;
+}
+#table th, #table-Box-busTransit #table th{
+    position: sticky;
+    top: 0px;
+	
+}
+#table-Box::-webkit-scrollbar, #table-Box-busTransit::-webkit-scrollbar {
+    width: 10px;
+}
+#table-Box::-webkit-scrollbar-thumb, #table-Box-busTransit::-webkit-scrollbar-thumb {
+    background-color: #536d4e;
+    border-radius: 20px;
+}
+#table-Box::-webkit-scrollbar-track, #table-Box-busTransit::-webkit-scrollbar-track {
+    background-color: #cce3cc;
+    margin-top: 2rem;   
+    border-radius: 20px;
+}
+/*미디어쿼리*/
+@media (min-width: 800px) {
+  #rAdminNm {
+        border: 0;
+    outline: none;
+    box-shadow: none;
+    display: block;
+    height: 100px;
+    line-height: 30px;
+    padding: 5px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    background-color: #ffffff;
+    width: 50%;
+    color: #757575;
+    border-radius: 10px;
+    margin-bottom: 5px;
+  }
+}

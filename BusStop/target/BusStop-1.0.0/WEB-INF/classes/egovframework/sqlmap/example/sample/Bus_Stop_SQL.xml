@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="busstopsample">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+	<typeAlias alias="pageVO"
+		type="busstop.example.sample.service.PageVO" />
+
+	<resultMap id="busVO"
+		class="busstop.example.sample.service.BusVO">
+		<result property="nodeId" column="node_id" />
+		<result property="nodeNm" column="node_nm" />
+		<result property="gpsLati" column="gps_lati" />
+		<result property="gpsLong" column="gps_long" />
+		<result property="collectdTime" column="collectd_time" />
+		<result property="nodeMobileId" column="node_mobile_id" />
+		<result property="cityCd" column="city_cd" />
+		<result property="cityName" column="city_name" />
+		<result property="adminNm" column="admin_nm" />
+		<result property="tDate" column="tdate" />
+	</resultMap>
+	
+	<!-- 
+	<resultMap id="cityVO" class="busstop.example.sample.service.CityVO">
+		<result property="disDistrict" column="dis_city_cd" />
+		<result property="disDistrict" column="dis_disctrict" />
+	</resultMap> -->
+	
+	<resultMap id="mapVO" class="busstop.example.sample.service.MapVO">
+		<result property="id" column="id" />
+		<result property="sigCd" column="sig_cd" />
+		<result property="sigEngNm" column="sig_eng_nm" />
+		<result property="sigKorNm" column="sig_kor_nm" />
+	</resultMap> 
+
+	<insert id="busDAO.insertBusstop">
+		<![CDATA[
+			INSERT INTO BUSSTOP 
+				( 
+					NODE_ID,
+					NODE_NM,
+					GPS_LATI,
+					GPS_LONG,
+					COLLECTD_TIME,
+					NODE_MOBILE_ID,
+					CITY_CD,
+					CITY_NAME,
+					ADMIN_NM,
+					TDATE
+				 )
+			VALUES ( 
+					#nodeId#
+				  , #nodeNm#
+				  , #gpsLati#
+				  , #gpsLong#
+				  , #collectdTime#
+				  , #nodeMobileId#
+				  , #cityCd#
+				  , #cityName#
+				  , #adminNm#
+				  , now()
+				  
+				  )
+		]]>
+	</insert>
+	<update id="busDAO.updateBusstop">
+		<![CDATA[
+			UPDATE BUSSTOP
+			SET NODE_ID=#nodeId#
+				, NODE_NM=#nodeNm#
+				, GPS_LATI=#gpsLati#
+				, GPS_LONG=#gpsLong#
+				, COLLECTD_TIME=#collectdTime#
+				, NODE_MOBILE_ID=#nodeMobileId#
+				, CITY_CD=#cityCd#
+				, CITY_NAME=#cityName#
+				, ADMIN_NM=#adminNm#
+				
+			WHERE NODE_ID=#nodeId#
+		]]>
+	</update>
+	<delete id="busDAO.deleteBusstop">
+		<![CDATA[
+			DELETE FROM BUSSTOP 
+			WHERE NODE_ID=#nodeId#
+		]]>
+	</delete>
+
+	<select id="busDAO.selectBusstop" resultMap="busVO">
+        <![CDATA[
+            SELECT
+                NODE_ID, NODE_NM, GPS_LATI, GPS_LONG, COLLECTD_TIME, NODE_MOBILE_ID, CITY_CD, CITY_NAME, ADMIN_NM, TDATE
+            FROM BUSSTOP
+            WHERE NODE_ID=#nodeId#
+        ]]>
+	</select>
+	
+	<select id="busDAO.selectMap" resultMap="mapVO">
+        <![CDATA[
+            SELECT
+                ID, SIG_CD, SIG_ENG_NM, SIG_KOR_NM
+            FROM KOREA_DISTRICT
+            WHERE ID=#id#
+        ]]>
+	</select>
+
+	<select id="busDAO.selectBusstopList" parameterClass="pageVO"
+		resultClass="HashMap">
+
+		SELECT
+		NODE_ID, NODE_NM, GPS_LATI, GPS_LONG, COLLECTD_TIME, NODE_MOBILE_ID, CITY_CD,
+		CITY_NAME, ADMIN_NM, TDATE
+		FROM BUSSTOP
+		WHERE 1=1
+		<isEqual prepend="AND" property="searchCondition"
+			compareValue="1">
+			NODE_NM LIKE '%' || #searchKeyword# || '%'
+		</isEqual>
+		<isEqual prepend="AND" property="searchCondition"
+			compareValue="2">
+			CITY_NAME LIKE '%' || #searchKeyword# || '%'
+		</isEqual>
+		ORDER BY NODE_ID DESC
+		LIMIT #recordCountPerPage# OFFSET #firstIndex#
+	</select>
+
+	<select id="busDAO.selectBusstopListTotCnt"
+		parameterClass="pageVO" resultClass="int">
+
+		SELECT COUNT(*) totcnt
+		FROM BUSSTOP
+		WHERE 1=1
+		<isEqual prepend="AND" property="searchCondition"
+			compareValue="1">
+			NODE_NM LIKE '%' || #searchKeyword# || '%'
+		</isEqual>
+		<isEqual prepend="AND" property="searchCondition"
+			compareValue="2">
+			CITY_NAME LIKE '%' || #searchKeyword# || '%'
+		</isEqual>
+	</select>
+
+
+
+</sqlMap>

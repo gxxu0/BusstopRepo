@@ -1,0 +1,458 @@
+* {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+body {
+    display: block;
+    margin: 0 auto;
+}
+#section-Box {
+	display: flex;
+	justify-content: space-between
+}
+
+#listForm2 {
+	display: flex;
+	flex-direction: column;
+}
+
+#title {
+	border-bottom: 1px solid gray;
+	margin: 10px;
+}
+
+#title a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+li, a {
+	list-style: none;
+	font-weight: bold;
+	color: black;
+}
+
+#button {
+	width: 200px;
+}
+
+a:hover {
+	color: gray;
+}
+
+#search {
+	display: inline-flex;
+	align-items: center;
+	margin: 0 2rem;
+}
+
+#registerBtnBox, #modifyBtnBox {
+	display: inline-flex;
+	margin: 0 auto;
+	width: 100%;
+	justify-content: center;
+}
+
+#registerBtnBox button {
+	
+}
+
+#search li {
+	margin-right: 10px;
+}
+
+#search div {
+	margin-right: 10px;
+}
+
+#searchRec {
+	text-align: right;
+	font-weight: bold;
+	margin: 10px 0;
+}
+
+.page_tag {
+	float: left;
+}
+
+.tbtd_caption {
+	font-weight: bold;
+	background-color: #A1C4B4;
+}
+
+thead th {
+	background-color: #A1C4B4;
+}
+
+#section-table {
+    width: 80rem;
+}
+
+#table-Box {
+	margin: 1.5rem 0.5rem;
+}
+
+table {
+	border-bottom: 1px solid #D8D8D8;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+th, td {
+	padding: 5px 0;
+	border-bottom: 1px solid #D8D8D8;
+}
+
+table thead th {
+	font-size: 13px;
+	padding: 7px 3px;
+    white-space: nowrap;
+}
+
+table .trTable .memList td {
+	font-size: 13px;
+	padding: 5px;
+	/*text가 길 때 두 줄로*/
+	max-width: 50px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+table .trTable .memList td:hover {
+  overflow: visible;
+  white-space: normal;
+  height: auto;
+}
+table .trTable .memList td .no{
+	font-weight: bold;
+}
+#searchBtn, #mapDicOnOff, #modifyBtn, #deleteBtn, #registerBtn,
+	#resetBtn {
+	background: #A1C4B4;
+	border-radius: 5px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	position: relative;
+	display: inline-block;
+	outline: none;
+	border: none;
+	margin: 5px;
+	text-decoration: none;
+	font-size: 13px;
+	padding: 3px;
+}
+
+#section-map {
+	width: 45rem;
+	border-left: 1px solid #dcdcdc;
+	padding: 0 5px;
+}
+
+#baseLayer {
+	right: 10px;
+	top: 10px;
+	z-index: 1;
+	margin-bottom: 10px;
+}
+
+.tbtd_caption {
+	text-align: right;
+	padding: 0 10px;
+}
+
+.tbtd_caption label {
+	font-size: 15px;
+}
+
+.tbtd_content input, .tbtd_content select:first-child {
+	margin-left: 10px;
+}
+
+/**************/
+
+/*버스정류장 위치 등록*/
+#registerBody #title, #modifyBody #title {
+	padding: 0 10px;
+	margin: 0 auto;
+	text-align: center;
+	width: 200px;
+}
+
+#nodeId, .mGpsLati, .mGpsLong, .mCityCd, .mAdminNm, .mCollectdTime,
+	.mDate, #tDate:hover {
+	cursor: default;
+}
+
+#modifyTable .mGpsLati, #modifyTable .mGpsLong:hover {
+	cursor: text;
+}
+
+#detailForm, #modifyForm {
+	background-color: #e2ece9;
+	padding: 10px;
+}
+
+#registerTable, #modifyTable {
+	margin: 10px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	display: flex;
+	
+}
+/*등록스크롤*/
+#registerBody #content_pop{
+	max-height: 492px;
+	overflow-y: auto;
+	direction: ltr;
+	scrollbar-color: #d4aa70 #e4e4e4;
+	scrollbar-width: thin;
+}
+/*수정스크롤*/
+#modifyBody #content_pop{
+  max-height: 525px;
+  overflow-y: auto;
+  direction: ltr;
+  scrollbar-color: #d4aa70 #e4e4e4;
+  scrollbar-width: thin;
+	
+}
+#content_pop::-webkit-scrollbar {
+  width: 15px;
+}
+#content_pop::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+#content_pop::-webkit-scrollbar-thumb {
+  border-radius: 100px;  
+  background: #6D8E7F; 
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+  opacity: 0.6;
+
+}
+#rNodeNm, 
+#rGpsLati, 
+#rGpsLong, 
+#rNodeMobileId, 
+#rAdminNm,
+#rCityCd,
+#rCityName,
+#rTDate{
+	border: 0;
+	outline: none;
+	box-shadow: none;
+	display: block;
+	height: 60px;
+	line-height: 30px;
+	padding: 5px 15px;
+	border-bottom: 1px solid #eee;
+	font-size: 13px;
+	background-color: #ffffff;
+	width: 54%;
+	color: #757575;
+	border-radius: 10px;
+	margin-bottom: 5px;
+}
+#rCityCd #sidoOp4{
+	margin-top: 7px;
+}
+
+#rGpsLati,
+#rGpsLong,
+#rTDate{
+	height: 90px;
+}
+
+#rNodeNm > input, 
+#rGpsLati > input, 
+#rGpsLong > input, 
+#rNodeMobileId > input, 
+#rCityName > input, 
+#rTDate > input{
+	border : 0;
+	display: block;
+	height: 50px;
+	margin: 5px auto;
+	line-height: 30px;
+	font-size: 13px;
+	background-color: #ffffff;
+	width: 93%;
+	color: #000000;
+	padding-left: 10px;
+	border-radius: 10px;
+	margin-bottom: 5px;
+}
+
+#rGpsLati > input, 
+#rGpsLong > input,
+#rTDate > input{
+	background-color: #e9e9e9;
+	color: #6e6e6e;
+	border-radius: 10px;
+	margin-bottom: 5px;
+}
+
+/*버스정류장 위치 수정*/
+#modifyTable #mNodeId{
+	border-radius: 10px 10px 0 0;
+}
+
+#modifyTable #mTDate{
+	border-radius: 0 0 10px 10px;
+}
+
+#mNodeId,
+#mNodeNm, 
+#mGpsLati, 
+#mGpsLong, 
+#mNodeMobileId, 
+#mCollectdTime,
+#mAdminNm,
+#mCityCd,
+#mCityName,
+#mTDate{
+	border: 0;
+	outline: none;
+	box-shadow: none;
+	display: block;
+	height: 90px;
+	line-height: 30px;
+	padding: 5px 15px;
+	border-bottom: 1px solid #eee;
+	font-size: 13px;
+	background-color: #ffffff;
+	width: 50%;
+	color: #757575;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+#mNodeId > input,
+#mNodeNm > input, 
+#mGpsLati > input, 
+#mGpsLong > input, 
+#mNodeMobileId > input, 
+#mCollectdTime > input,
+#mmadminNm,
+#adminModifyReturn,
+#mCityCd > input,
+#mCityName > input,
+#mTDate > input{
+	border: 0;
+	display: block;
+	height: 50px;
+	margin: 5px auto;
+	line-height: 30px;
+	font-size: 13px;
+	background-color: #ffffff;
+	width: 95%;
+	color: #000000;
+	padding-left: 10px;
+	border-radius: 10px;
+	border-bottom: 1px solid #f1e9e9;
+	margin-bottom: 5px;
+}
+
+#adminModifyReturn{
+	align-items: center;
+}
+
+#mNodeId > input,
+#mCollectdTime > input,
+#mCityCd > input,
+#mTDate > input{
+	outline: none;
+	background-color: #f1f1f1;
+	color: #6e6e6e;
+	border-radius: 10px;
+	margin-bottom: 5px;
+	opacity: 0.5;
+}
+#mAdminNm{
+	height: 100px;
+}
+#adminModify{
+	display: flex;
+}
+#adminModifyBtn{
+	margin-top:2px;
+}
+/*선택위치*/
+#click-Vworld{
+	margin-left: 2px;
+}
+
+/*************************************/
+
+.paging {
+	margin: 0 auto;
+	position: fixed;
+	top: 30rem;
+}
+
+.ol-viewport {
+	width: 50%;
+}
+
+#popup {
+	width: auto;
+	height: auto;
+	border-radius: 20px;
+	font-size: 18px;
+	background-color: #ffffff;
+	padding: 10px;
+}
+
+#popup:hover {
+	curser: pointer;
+}
+
+#content_pop {
+	margin: 10px;
+}
+
+#popup-table {
+	margin: 10px 0;
+}
+
+#popup-table .tbtd_caption {
+	text-align: right;
+	padding: 0 10px;
+}
+
+#mapContent {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+#geoCoding {
+	font-weight: bold;
+	font-size: 14px;
+	margin: 10px 0;
+}
+
+#popup-Hover-content {
+	font-weight: bold;
+}
+/*미디어쿼리*/
+@media (min-width: 800px) {
+  #rAdminNm {
+        border: 0;
+    outline: none;
+    box-shadow: none;
+    display: block;
+    height: 100px;
+    line-height: 30px;
+    padding: 5px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    background-color: #ffffff;
+    width: 50%;
+    color: #757575;
+    border-radius: 10px;
+    margin-bottom: 5px;
+  }
+}
