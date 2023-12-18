@@ -239,45 +239,7 @@
 		</div>
 	</form:form> 
 	</section>
-	
-	<section id="section-map">
-	<form name="frmPopup" method="post">
-		<input type="hidden" name="nodeId" value="" /> <input type="hidden" name="nodeNm" value="" /> <input type="hidden" name="gpsLati" value="" /> <input type="hidden" name="gpsLong" value="" /> <input
-			type="hidden" name="collectdTime" value="" /> <input type="hidden" name="nodeMobileId" value="" /> <input type="hidden" name="cityCd" value="" /> <input type="hidden" name="cityName" value="" />
-		<input type="hidden" name="adminNm" value="" /> <input type="hidden" name="tDate" value="" />
-	</form>
-
-	<div id="map" class="map">
-		<select id="baseLayer"></select>
-		<button onclick="mapDicOnOff()" id="mapDicOnOff" class="mapDicOnOff">행정경계 끄기</button>
-		<div id="mapContent" title="지도 설명"></div>
-		<div id="mapContent-text" style="display: none;">
-			<p style="font-weight: 800;">지도를 클릭해보세요</p>
-			[단일 클릭] 행정경계 별 버스정류장 위치 검색 <br/>
-			[더블 클릭] 버스정류장 위치 등록 <br/>
-			[마커 마우스오버] 버스정류장 위치  <br/>
-		</div>
-	</div>
-	<div id="popup" class="ol-popup">
-		<div id="popup-content"></div>
-	</div>
-	
-	<div id="geoCoding">
-		행정경계 별 클릭 위치 주소 : <span id="geoCoding-content"></span>
-		</div>
-		<div id="geoCoding">
-			버스정류장 위치 :
-			<span id="popup-Hover-content"></span>
-		</div>
-		<div id="main-modifyBtnBox" style="display:none;">
-			<a id="modifyBtn" href="javascript:busstop_edit_btn();">수정하기</a> <a id="deleteBtn" href="javascript:busstop_delete();">삭제하기</a>
-		</div>
-	</section> 
-	
-	</main>
-	<div id="section-chart" style="display: none;">
-	
-		<button id="parkPannel-close"></button>
+	<div id="section-chart">
 		<div id="toggleDiv">
 			 <input type="checkbox" id="toggle" hidden> 
 
@@ -305,6 +267,49 @@
 	<div id="section-chart-doughnut" style="display: none;">
 		<button id="parkPannel-close-doughnut"></button>
 	</div>
+	<section id="section-map">
+	<form name="frmPopup" method="post">
+		<input type="hidden" name="nodeId" value="" /> <input type="hidden" name="nodeNm" value="" /> <input type="hidden" name="gpsLati" value="" /> <input type="hidden" name="gpsLong" value="" /> <input
+			type="hidden" name="collectdTime" value="" /> <input type="hidden" name="nodeMobileId" value="" /> <input type="hidden" name="cityCd" value="" /> <input type="hidden" name="cityName" value="" />
+		<input type="hidden" name="adminNm" value="" /> <input type="hidden" name="tDate" value="" />
+	</form>
+
+	<div id="map" class="map">
+		<select id="baseLayer"></select>
+		<button onclick="mapDicOnOff()" id="mapDicOnOff" class="mapDicOnOff" title="행정경계 on/off">행정경계 끄기</button>
+		<button onclick="move()" id="moveOnOff" class="moveOnOff" title="마커있는 곳으로 시점 이동">마커 위치로 시점 이동</button>
+		
+		<div id="mapContent" title="지도 설명"></div>
+		<div id="mapContent-text" style="display: none;">
+			<p style="font-weight: 800;">지도를 클릭해보세요</p>
+			[단일 클릭] 행정경계 별 버스정류장 위치 검색 <br/>
+			[더블 클릭] 버스정류장 위치 등록 <br/>
+			[마커 마우스오버] 버스정류장 위치  <br/> <br/>
+			마커 옮기기모드<br/>
+			[마커 단일 클릭]-[타 위치 클릭]-[수정하기 버튼] 버스정류장 위치 수정<br/><br/>
+			[마커 더블 클릭] 버스정류장 위치 수정 <br/>
+		</div>
+		<button onclick="markerON()" id="markerONOff" class="markerONOff" title="지도 클릭 - [마커 옮기지않기]모드 - 이동 위치 선택 - 수정하기">마커 옮기기</button>
+		<br/><span style="font-size:11px;">지도 클릭(이동 할 마커) - [마커 옮기지않기]모드 - 마커 단일클릭 - 타 위치 단일클릭- 수정하기</span>
+	</div>
+	<div id="popup" class="ol-popup">
+		<div id="popup-content"></div>
+	</div>
+	
+	<div id="geoCoding">
+		행정경계 별 클릭 위치 주소 : <span id="geoCoding-content"></span>
+		</div>
+		<div id="geoCoding">
+			버스정류장 위치 :
+			<span id="popup-Hover-content"></span>
+		</div>
+		<div id="main-modifyBtnBox" style="display:none;">
+			<a id="modifyBtn" href="javascript:busstop_edit_btn();">수정하기</a> <a id="deleteBtn" href="javascript:busstop_delete();">삭제하기</a>
+		</div>
+	</section> 
+	
+	</main>
+	
 </body>
 
 </html>

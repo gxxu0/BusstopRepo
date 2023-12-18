@@ -33,8 +33,8 @@ main{
 	border-bottom: 1px solid gray;
 	justify-content: space-between;
 	align-items: center;
-	box-shadow: 10px 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  
+	/*box-shadow: 10px 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  */
 }
 #toggleBottom{
 	margin: 4vh;
@@ -127,7 +127,7 @@ thead th {
 }
 
 #section-table {
-    width: 80vh;
+    width: 95vh;
     margin-top: 3rem;
 }
 
@@ -154,17 +154,13 @@ table thead th {
 
 table .trTable .memList td {
 	font-size: 13px;
-	padding: 5px;
-	text-overflow: ellipsis; 
-	white-space: nowrap; 
+	padding: 5px; 
 	max-width: 65px; 
 	overflow: hidden;
 }
 table .trTable #toggleTable td{
 	font-size: 13px;
 	padding: 5px;
-	text-overflow: ellipsis; 
-	white-space: nowrap; 
 	max-width: 65px; 
 	overflow: hidden;
 }
@@ -174,14 +170,11 @@ table .trTable .memList td .no{
 .memList-first td,.memList-second td {
 	font-size: 13px;
 	padding: 5px;
-	text-overflow: ellipsis; 
-	white-space: nowrap; 
 	max-width: 65px; 
 	overflow: hidden;
 }
 .memList-first, .memList-second{
-	
-	opacity: 0.6;
+	color: #03030366;
 }
 .memList-first td{
 	background-color: #d3ede1;
@@ -189,7 +182,7 @@ table .trTable .memList td .no{
 	
 }
 #searchBtn, #mapDicOnOff, #modifyBtn, #deleteBtn, #registerBtn,
-	#resetBtn {
+	#resetBtn, #markerONOff, #moveOnOff{
 	background: #A1C4B4;
 	border-radius: 5px;
 	font-weight: bold;
@@ -204,12 +197,12 @@ table .trTable .memList td .no{
 	font-size: 13px;
 	padding: 3px;
 }
-
 #section-map {
 	width: 80vh;
 	margin-top: 3rem;
 	border-left: 1px solid #dcdcdc;
-	padding: 0 5px;
+	padding: 0 5px;    
+	margin-right: 1rem;
 }
 
 #baseLayer {
@@ -627,11 +620,11 @@ table .trTable .memList td .no{
 	font-weight: bold;
 	cursor: pointer;
 }
-.chart{
-  max-width: 824px;
-  max-height: 1024px;
-  display: flex;
-  flex-direction: column;
+.chart {
+    max-width: 824px;
+    max-height: 1024px;
+    display: flex;
+    flex-direction: row;
 }
 #myChart{
   max-width: 804px;
@@ -646,17 +639,16 @@ canvas {
   max-width: 100%;
 }
 #section-chart{
-	width: 44%;
-    position: absolute;
+	display:none;
+	width: 80%;
+   position: absolute;
     background-color: white;
     top: 5vh;
     left: 28.3vh;
-    height: 78%;
-    display: flex;
+    height: 88%;
+   
     overflow: auto;
     padding: 1rem;
-    box-shadow: 5px 0px 5px -2px gray;
-    border-radius: 0px 10px 10px 0;
 	
 }
 #section-chart::-webkit-scrollbar {
@@ -682,22 +674,6 @@ canvas {
     padding: 1rem;
     box-shadow: 5px 0px 5px -2px gray;
     border-radius: 0px 10px 10px 0;
-}
-#parkPannel-close, #parkPannel-close-doughnut{
-	right: 0.1rem;
-    top: 2rem;
-    border: 0;
-    position: absolute;
-    font-weight: bold;
-    border-radius: 10px;
-    width: 3.3rem;
-    background: url(../../css/busstop/square-rounded-x-filled.svg) no-repeat;
-    height: 27px;
-    background-size: 22px;
-    filter: invert(24%) sepia(21%) saturate(476%) hue-rotate(85deg) brightness(101%) contrast(89%);
-}
-#parkPannel-close:hover, #parkPannel-close-doughnut:hover{
-	cursor: pointer;
 }
 #chartTableDiv {
     display: none;

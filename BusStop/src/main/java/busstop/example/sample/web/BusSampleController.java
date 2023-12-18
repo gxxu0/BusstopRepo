@@ -185,11 +185,10 @@ public class BusSampleController {
 
 			JSONArray jsonArray = new JSONArray();
 			jsonArray.put(json);
-System.out.println(jsonArray);
+			System.out.println(jsonArray);
 
 			return jsonArray.toString();
 		}
-
 	// 등록 화면 조회
 	@RequestMapping(value = "/BusStopRegister.do", method = RequestMethod.GET)
 	public String addBusstopView(@ModelAttribute("busVO") BusVO busVO, Model model) throws Exception {

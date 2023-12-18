@@ -3,33 +3,51 @@ $(document).ready(function() {
 	link_page();
 	init();
 	siBSDMF();
+	
 });
 $('#marker-popup-close').on('click',function (e) {
     $('#popup').removeClass('.ol-popup');
 });
+
 $('#clickChart').click(function(){
-	//$("#section-chart").toggleClass("active");
-	$('#section-chart').css('display','block');
-	$('#clickChart').css('background-color','white');
-	$('#clickChart>.text').css('color','black');
-	$('#clickChart .img').css('filter','invert(0%) sepia(100%) saturate(580%) hue-rotate(159deg) brightness(89%) contrast(107%)');
+	$('#clickChart').toggleClass("active");
 
-	$('#clickChart-table').css('background-color','#394d3f');
-	$('#clickChart-table .text').css('color','#ffffff');
-	$('#clickChart-table .img').css('filter','invert(100%) sepia(0%) saturate(7490%) hue-rotate(323deg) brightness(104%) contrast(101%)');
+	if($('#clickChart').hasClass('active')){
+		$('#section-table').css('display','none');
+		$('#clickChart-table').removeClass('active');
+		$('#section-map').css('display','none');
+		$('#section-chart').css('display','block');
+		
+		$('#clickChart').css('background-color','white');
+		$('#clickChart>.text').css('color','black');
+		$('#clickChart .img').css('filter','invert(0%) sepia(100%) saturate(580%) hue-rotate(159deg) brightness(89%) contrast(107%)');
 	
-})
-$('#parkPannel-close').click(function(){
-	$('#section-chart').css('display','none');
-	$('#clickChart').css('background-color','#394d3f');
-	$('#clickChart .text').css('color','#ffffff');
-	$('#clickChart .img').css('filter','invert(100%) sepia(0%) saturate(7490%) hue-rotate(323deg) brightness(104%) contrast(101%)');
-	
-	$('#clickChart-table').css('background-color','white');
-	$('#clickChart-table>.text').css('color','black');
-	$('#clickChart-table .img').css('filter','invert(0%) sepia(100%) saturate(580%) hue-rotate(159deg) brightness(89%) contrast(107%)');
+		$('#clickChart-table').css('background-color','#394d3f');
+		$('#clickChart-table .text').css('color','#ffffff');
+		$('#clickChart-table .img').css('filter','invert(100%) sepia(0%) saturate(7490%) hue-rotate(323deg) brightness(104%) contrast(101%)');
 
+	}
 })
+$('#clickChart-table').click(function(){
+	$('#clickChart-table').toggleClass("active");
+
+	if($('#clickChart-table').hasClass('active')){
+		$('#section-table').css('display','block');
+		$('#section-map').css('display','block');
+		$('#section-chart').css('display','none');
+		
+		$('#clickChart').css('background-color','#394d3f');
+		$('#clickChart .text').css('color','#ffffff');
+		$('#clickChart .img').css('filter','invert(100%) sepia(0%) saturate(7490%) hue-rotate(323deg) brightness(104%) contrast(101%)');
+		
+		$('#clickChart-table').css('background-color','white');
+		$('#clickChart-table>.text').css('color','black');
+		$('#clickChart-table .img').css('filter','invert(0%) sepia(100%) saturate(580%) hue-rotate(159deg) brightness(89%) contrast(107%)');
+
+	}
+})
+
+
 $('#clickChart-doughnut').click(function(){
 	//$("#section-chart").toggleClass("active");
 	$('#section-chart-doughnut').css('display','block');
@@ -73,7 +91,6 @@ function busstop_register() {
 		type : "POST",
 		data : formData,
 		success : function(data) {
-//			console.log(data);
 			var result = confirm("새로운 버스정류장 위치를 등록하시겠습니까?");
 			if(result){
 			    alert("위치 등록이 되었습니다.");
@@ -126,7 +143,34 @@ function busstop_edit_btn(){
 		},
 	})
 }
+//글 수정 버튼 누른 후
+function marker_busstop_edit_btn(){
+	if ($('#nodeNm').val() == '') {
+		alert('정류장명칭을 입력하세요.')
+		return;
+	}
+	var formDataModify = $("#modifyForm").serialize();
+	$.ajax({
+		url : "/updateBusstop.do",
+		type : "POST",
+		data :formDataModify,
+		success : function(data) {
+			var result = confirm("버스정류장 위치를 수정하시겠습니까?");
+			if(result){
+			    alert("위치 수정이 완료되었습니다.");
+			    opener.location.reload(); // 부모창 리로드
+				window.close(); // 자식창 끄기
+			}else{
+			    
+			}
+			
 
+		},
+		error : function(error) {
+			console.log("error" + error);
+		},
+	})
+}
 // 글 목록
 function selectList(button) {
 	document.listForm2.action = "/BusStopList.do";
@@ -159,8 +203,7 @@ function busstop_delete() {
 //마커 popup에서 삭제
 function busstop_delete_markerpop(){
 
-	var nodeId = document.getElementById('popup-content').firstChild.innerHTML
-//	console.log(nodeId);
+	var nodeId = document.getElementById('popup-content').firstChild.innerHTML;
    $.ajax({
 	      url : "/deleteBusStop.do",
 	      type : "POST",
@@ -247,7 +290,6 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 	
 	var chgData;
 	
-	
 	$.ajax({
 		url : "/BusStopListAjax.do",
 		type : "POST",
@@ -289,10 +331,6 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 	
 			}
 			
-			
-//console.log(data[0]);
-			
-			
 			var content = '';
 			var busTransit = ''
 			var content2 = '';
@@ -318,19 +356,19 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 				queryParams += '&' + encodeURIComponent('nodeid') + '=' + encodeURIComponent(data[0].busList[k].node_id); /**/
 				xhr.open('GET', url + queryParams);
 				xhr.onreadystatechange = function () {
-//			    	console.log('queryParams',queryParams);
+//console.log('queryParams',queryParams);
 				    if (this.readyState == 4) {
-//						console.log('k',k);
+//console.log('k',k);
 				    	var response = JSON.parse(this.responseText);
 				    	lengthResponse = response.response.body.totalCount;
 				    	response = response.response.body.items.item;
 				    	busTransitRoute.push(response);
-//				    	console.log('queryParams',queryParams);
+//console.log('queryParams',queryParams);
 //console.log('busTransitRoute',busTransitRoute);
 //console.log('lengthResponse',lengthResponse);
 				        if(lengthResponse == 1){
 				        	for(var i = 0; i< lengthResponse;){
-//								console.log('sssssbusTransitRoute',busTransitRoute[i]);
+//console.log('sssssbusTransitRoute',busTransitRoute[i]);
 								busTransit += '<tr class="memList">'
 								busTransit += '<td align="center" class="no" style="font-weight: bold;">' + (i+1) + '</td>';
 								busTransit += '<td align="center" title='+busTransitRoute[i].endnodenm+'>'+ busTransitRoute[i].endnodenm + '</td>';
@@ -343,7 +381,7 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 							}
 				        }else if(lengthResponse > 1){
 				        	 for(var i = 0; i< lengthResponse;){
-//									console.log('sssssbusTransitRoute',busTransitRoute[0][i]);
+//console.log('sssssbusTransitRoute',busTransitRoute[0][i]);
 									busTransit += '<tr class="memList">'
 									busTransit += '<td align="center" class="no" style="font-weight: bold;">' + (i+1) + '</td>';
 									busTransit += '<td align="center">'+ busTransitRoute[0][i].endnodenm + '</td>';
@@ -375,7 +413,7 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 			    }
 
 			    if (hasNumber(checkString)) {
-			        console.log("문자열에 숫자가 포함되어 있습니다.");
+//console.log("문자열에 숫자가 포함되어 있습니다.");
 			        var adminEx = checkString;
 			        const stringWithoutComma = adminEx.replace(/,/g, '');
 
@@ -398,7 +436,7 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 			            }
 			        }
 			    } else {
-			        console.log("문자열에 숫자가 포함되어 있지 않습니다.");
+//console.log("문자열에 숫자가 포함되어 있지 않습니다.");
 			    }
 
 			    var nodeIdValue = result[k].node_id;
@@ -433,17 +471,26 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 			content2 = '<ol class="pagination" id="pagination">';
 			content2 += '<input type="hidden" id="pageIndex" name="pageIndex" value="1">';
 	
-			$('.memList').click(function() {
-				$(this).toggleClass('active');
-				if($(this).hasClass('active')){
-					$(this).next().css("display", ''); 
-					$(this).next().next().css("display", ''); 
-				}else if(!$(this).hasClass('active')){
-					$(this).next().css("display", 'none'); 
-					$(this).next().next().css("display", 'none'); 
+			$('.memList .toggleBottom').click(function() {
+				$(this).parent().toggleClass('active');
+				if($(this).parent().hasClass('active')){
+					$(this).parent().next().css("display", ''); 
+					$(this).parent().next().next().css("display", ''); 
+				}else if(!$(this).parent().hasClass('active')){
+					$(this).parent().next().css("display", 'none'); 
+					$(this).parent().next().next().css("display", 'none'); 
 				}
 			})
-			
+			$('.memList #nodeId').click(function(){
+				console.log($(this).siblings('#gpsLati')[0].innerText);
+				var centerLati = $(this).siblings('#gpsLati')[0].innerText;
+				var centerLong = $(this).siblings('#gpsLong')[0].innerText;
+
+			    var clickMoveMarker = proj4('EPSG:4326', 'EPSG:3857', [centerLong, centerLati]);
+			    console.log(clickMoveMarker);
+				map.getView().setCenter(clickMoveMarker); //마커있는 위치로 이동
+				map.getView().setZoom(19);
+			})
 			if (pageVO.prev) {
 				content2 += '<li class="prev_end"><a href="javascript:void(0);" onclick="link_page(1); return false;" ><<</a></li>';
 				content2 += '<li class="prev_end"><a href="javascript:void(0);"  onclick="link_page('+ startButtonDate + '); return false;" ><</a></li>';
@@ -479,14 +526,15 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 			initBaseLayerSelect(map); // 페이지 변경 시 지도 마커도 위치 변경
 			map.addLayer(wmsLayer);
 			wmsLayer.setVisible(true);
-
 			$(".paging").html(content2);
-	
+			
 		},
 		error : function(error) {
 			console.log("error");
 		},
 	})
+	
+	
 	$.ajax({
 		url : "/entireBusStopListAjax.do",
 		type : "POST",
@@ -513,6 +561,7 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 		cityListData.forEach(item => {
 		    const city_name = item["city_name"];
 		    const city_count = item["count"];
+//		    console.log('itemitemitem',item);
 		    const city_name_last = item.city_name.slice(-1);
 		    cityArr.push(item.city_name);
 		    cityCntArr.push(item.count);
@@ -574,7 +623,10 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 		                display: true,
 		                text: '도시코드를 기준으로 분류 한 전국 버스정류장 위치 개수'
 		            }
-		        }
+		        },
+		        animation: {
+		            duration: 0, // 애니메이션 삭제
+		          },
 		    },
 		    
 		  });
@@ -642,7 +694,11 @@ function link_page(pageNo, searchCondition, searchKeyword) {
                     display: true,
                     text: '버스정류장 위치 개수 현황'
                   }
-                }
+                },
+                animation: {
+                    duration: 0, // 애니메이션 삭제
+                  },
+                
               },
         });
         $('.close-up').click(function(){
@@ -658,6 +714,12 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 		},
 	})
 };
+//시점 이동 (게시판의 맨 첫번째 항목 위치 기준)
+function move(){
+	map.getView().setCenter(point_feature.getGeometry().getCoordinates()); //마커있는 위치로 이동
+	map.getView().setZoom(13);
+}
+
 // 좌표계 설정
 initProj();
 // 행정경계 on off 설정
@@ -713,7 +775,7 @@ var view = new ol.View({
 	'EPSG:3857'),
 zoom : 9
 });
-
+console.log(view);
 // map 생성
 var map = new ol.Map({
 	target : 'map',
@@ -867,8 +929,10 @@ function selectOptionMap(map) {
 	$('#baseLayer').append(html);
 
 }
+var point_feature;
+var markerSource;
+var markerLayer;
 function addMarkerMulti(map) {
-
 	// 게시판 데이터를 Element로 가져오기
 	var eleNodeId = document.getElementsByClassName('nodeId');
 	var eleNodeNm = document.getElementsByClassName('nodeNm');
@@ -885,8 +949,8 @@ function addMarkerMulti(map) {
 	
 	const dataObj = [];
 	
-	var cnt = document.getElementsByClassName('trTable')[0].getElementsByClassName('memList').length
-	console.log('cnt',cnt);
+	var cnt = document.getElementsByClassName('trTable')[0].getElementsByClassName('memList').length;
+	
 	for (var i = 0; i < cnt; i++) {
 		llati = Number(eleGpsLati[i].innerText);
 		llong = Number(eleGpsLong[i].innerText);
@@ -906,9 +970,9 @@ function addMarkerMulti(map) {
 		  dataObj.push({llId,lnodeNm,llati,llong});
 	}
 	
-	var markerSource = new ol.source.Vector();
+	markerSource= new ol.source.Vector();
 	for (var i = 0; i < data.length; i++) {
-		var point_feature = new ol.Feature({
+		point_feature = new ol.Feature({
 			geometry : new ol.geom.Point(data[i]).transform('EPSG:4326',
 					'EPSG:3857'),
 			name : dataObj[i].lnodeNm,
@@ -916,10 +980,9 @@ function addMarkerMulti(map) {
 			dataObj : dataObj[i]
 
 		});
+		console.log('point_feature',point_feature);
 		// addFeature로 markerSource에 등록한 point를 담는다.
 		markerSource.addFeature(point_feature);
-
-
 		// point의 style을 변경
 		var markerStyle = new ol.style.Style({
 			image : new ol.style.Icon({ // 마커 이미지
@@ -929,24 +992,96 @@ function addMarkerMulti(map) {
 				// marker 이미지, 해당 point를 marker로 변경한다.
 				src : '/css/busstop/marker.png?ver=1'
 			}),
+			
 			// html의 css, z-index 기능이다.
 			zindex : 10
 		});
 
 		// 마커 레이어 생성
 		markerLayer = new ol.layer.Vector({
-			source : markerSource, // 마커 feacture들
-			style : markerStyle
-		// 마커 스타일
+		    source: markerSource, // 마커 feacture들
+		    style: markerStyle
+		    // 마커 스타일
 		});
 
+		
 
 		// 지도에 마커가 그려진 레이어 추가
 		map.addLayer(markerLayer);
-		
-		}
+	}
+	
 }
 
+//지도 내에서 마커 클릭하여 수정하기
+var exist_dataobj;
+var exist_name;
+var exist_id;
+
+var t = document.getElementById("markerONOff");
+
+map.on('click', function (e) {
+	if(t.innerHTML !== "마커 옮기기"){
+		
+		var markerClicked = map.hasFeatureAtPixel(e.pixel);
+		clickedFeature = map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+	        if (layer !== null) {
+	            return feature;
+	        }
+	    });
+	    if (markerClicked) {
+	        exist_dataobj = clickedFeature.getProperties().dataObj;
+	        exist_name = clickedFeature.getProperties().id;
+	        exist_id = clickedFeature.getProperties().name;
+
+	        markerSource.removeFeature(clickedFeature); //마커 지우기
+	        markerLayer.setSource(markerSource);
+	        markerClicked = false;
+	    }else {
+	    	if(exist_dataobj !== undefined){
+	    		console.log(exist_dataobj,exist_name,exist_id);
+		    	var clickedCoordinate = e.coordinate;
+			    clickedWgs84 = proj4('EPSG:3857', 'EPSG:4326', [clickedCoordinate[0], clickedCoordinate[1]]);
+			    console.log('변경 위치 : ', clickedWgs84);
+			    var point_feature = new ol.Feature({
+			        geometry: new ol.geom.Point(clickedWgs84).transform('EPSG:4326', 'EPSG:3857'),
+			        id: exist_id,
+			        name: exist_name,
+			        dataObj: exist_dataobj
+			    });
+			    markerSource.addFeature(point_feature);
+			    markerLayer.setSource(markerSource);
+			    
+			    //수정하기 뜸
+			    var geometry = point_feature.getGeometry();
+
+				const dataObj = point_feature.get('dataObj');
+				
+				var wgs84 = proj4('EPSG:3857','EPSG:4326', clickedWgs84);
+
+				var frm = document.frmPopup;
+				frm.nodeId.value = dataObj.llId;
+			    console.log('frm : ', frm);
+				
+				var url = "/updateBusView.do";
+				var title = "testpop";
+				var status = "toolbar=no, width=700, height=660, directories=no, status=no,    scrollorbars=no, resizable=no";
+				window.open("", title, status);
+				frm.target = title;
+				frm.action = url;
+				frm.gpsLati.value = clickedWgs84[1];
+				frm.gpsLong.value = clickedWgs84[0];
+				frm.method = "post";
+				frm.submit();
+	    	}
+	    	else if(exist_dataobj === undefined){
+	    		alert('이동 할 마커를 다시 선택하세요.');
+	    	}
+	    }
+	   
+	    
+	}
+	
+});
 
 
 function initBaseLayerSelect(map) {
@@ -956,7 +1091,6 @@ function initBaseLayerSelect(map) {
 		$.each(map.getLayers().getArray(), function(i, v) {
 			if (layerId == v.get('id')) {
 				v.setVisible(true);
-				//addMarker(map); //초기위치
 				addMarkerMulti(map); //정류장 마커 위치
 
 			} else {
@@ -969,7 +1103,6 @@ function initBaseLayerSelect(map) {
 	// 마커 위 popup
 	var container = document.getElementById('popup'); // 팝업창
 	var content = document.getElementById("popup-content"); // 팝업창 문구
-
 
 	// 클릭 시, 현재 위치의 정보를 DB에 저장하기
 	map.on("dblclick",function(e){
@@ -1003,14 +1136,13 @@ function initBaseLayerSelect(map) {
 				}
 			});
 
-				if (feature) {
-					var geometry = feature.getGeometry();
+			if (feature) {
+				var geometry = feature.getGeometry();
 
-					const dataObj = feature.get('dataObj');
+				const dataObj = feature.get('dataObj');
 				var coordinate = e.coordinate;
 				overlay.setPosition(coordinate);
 				
-				// 좌표계 변환
 				var wgs84 = proj4('EPSG:3857','EPSG:4326', [ coordinate[0],coordinate[1] ]);
 
 				var frm = document.frmPopup;
@@ -1024,16 +1156,89 @@ function initBaseLayerSelect(map) {
 				frm.action = url;
 				frm.method = "post";
 				frm.submit();
-				//const target = document.querySelector('#map');
-				//const listenerList = getEventListeners( target );
-				//target.removeEventListener('click', listenerList.click[1].listener );
-				}
+			}
 			
 		} else {
 			
 		}
 	});
+	var clickedFeature;
+	var existingInfo;
 	
+	var t = document.getElementById("markerONOff");
+	var koreaDic; // 응답(response)변수 저장
+	
+	map.on ('click',function(e) { 
+		if(t.innerHTML === "마커 옮기기"){
+		    var viewResolution =  /** @type {number} */ (view.getResolution());
+		    var url = wmsSource.getGetFeatureInfoUrl(
+		        e.coordinate,
+		        viewResolution,
+		        'EPSG:3857',
+		        { 'INFO_FORMAT': 'application/json', 'FEATURE_COUNT': 1}
+		    );
+		    if (url) {
+		    	getFeatureInfo(url)
+		    	.then(jsonResponse => {
+		            koreaDic = jsonResponse.features[0];
+		            const koreaDicProp = koreaDic.properties;
+		            const koreaDic_SigCd = koreaDicProp[Object.keys(koreaDicProp)[0]];
+		            const koreaDic_SigKorNm = koreaDic.id.split('.')[1]; // id값
+
+		        	// 검색 키워드를 도시명으로 설정(변경)
+		        	searchCondition = $("#searchCondition").val(1).prop("selected",true);
+		        	// 검색창에 koreaDic_SigKorNm 값을 설정
+		        	searchKeyword = $("#searchKeyword").val(koreaDicProp[Object.keys(koreaDicProp)[2]]);
+		            link_page(1, searchCondition, searchKeyword);
+		          })
+		          .catch(error => console.error(error));
+		    }
+		    e.stopPropagation();
+
+		    //행정경계 별 클릭 위치 주소 역지오코딩
+			var geoContent = document.getElementById("geoCoding-content"); // 팝업창 문구
+			
+			//클릭 시, 브이월크 역지오 코딩 API 좌표 -> 주소 얻기
+			var coordinate = e.coordinate;
+			// 좌표계 변환
+			var wgs84 = proj4('EPSG:3857','EPSG:4326', [ coordinate[0],coordinate[1] ]);
+
+			var pre_Lati = wgs84[1]; // 위도
+			var pre_Long = wgs84[0]; // 경도
+		    
+			const point = `${pre_Long},${pre_Lati}`;
+			
+			//좌표 -> 주소 얻기
+			$.ajax({
+			    url: "https://api.vworld.kr/req/address?",
+			    type: "GET",
+			    dataType: 'jsonp',
+			    data: {
+			        service: "address",
+			        request: "getaddress",
+			        version: "2.0",
+			        crs: "EPSG:4326",
+			        type: "BOTH",
+			        point: point,
+			        format: "json",
+			        errorformat: "json",
+			        key: "ED44681F-5399-33EF-BD09-94203C9E7C94",
+			    },
+			    success: function(result) {
+			    	geoContent.innerHTML = '<span>' + result.response.result[0].text + '</span>';
+			    },
+			    error: function(error) {
+			        console.log("error");
+			    },
+			});
+
+		}else{
+			
+			
+		}
+	});
+	
+
 	let hover = null;
 	map.on('pointermove', function(evt) {
 	  map.getTargetElement().style.cursor = map.hasFeatureAtPixel(evt.pixel) ? 'pointer' : '';
@@ -1048,11 +1253,11 @@ function initBaseLayerSelect(map) {
 	  if (hoverFeature) {
 		  if (feature) {
 		  		var geometry = feature.getGeometry();
-
+//console.log('featurefeaturefeature',feature);
 		  		const dataObj = feature.get('dataObj');
 
 		  		var frm = document.frmPopup;
-		  		frm.nodeId.value = dataObj.llId;
+		  		frm.nodeId.value = dataObj.lnodeNm;
 		  	}
 
 		  var dataObj = hoverFeature.get('dataObj');
@@ -1117,10 +1322,6 @@ function initBaseLayerSelect(map) {
 	    }
 	  }
 	});
-	
-	
-	
-	
 	var overlay = new ol.Overlay({
 		element : container,
 		autoPan : false,
@@ -1137,41 +1338,7 @@ $("div[id='marker-popup-close']").click(function () {
 	document.getElementsByClassName('ol-overlay-container')[0].style = 'display:none';
   });
 
-// 초기 위치 기본 마커
-/*function addMarker(map) {
-	var markerSource = new ol.source.Vector();
-	var point_feature = new ol.Feature({
-		geometry : new ol.geom.Point([ 126.95659953, 37.578220423 ]).transform(
-				'EPSG:4326', 'EPSG:3857'),
-		id : "초기 위치"
-	});
 
-	// markerSource에 등록한 point를 담는다. addFeature를 이용해서, 여러개의 point를 source에 담는다.
-	markerSource.addFeature(point_feature);
-
-	// style을 활용해서, point의 style을 변경한다.
-	var markerStyle = new ol.style.Style({
-		image : new ol.style.Icon({ // 마커 이미지
-			opacity : 1, // 투명도 1=100%
-			scale : 0.1, // 크기 1=100%
-
-			// marker 이미지, 해당 point를 marker로 변경한다.
-			src : '/css/busstop/marker.png?ver=1'
-		}),
-		zindex : 10
-	});
-
-	// 마커 레이어 생성
-	markerLayer = new ol.layer.Vector({
-		source : markerSource, // 마커 feacture들
-		style : markerStyle // 마커 스타일
-	});
-
-	// 지도에 마커가 그려진 레이어 추가
-	map.addLayer(markerLayer);
-
-
-}*/
 
 function getFeatureInfo(url) {
   return new Promise((resolve, reject) => {
@@ -1181,84 +1348,16 @@ function getFeatureInfo(url) {
       .catch(error => reject(error));
   });
 }
+//행정경계 on off 설정
+function markerON(){
+	var t = document.getElementById("markerONOff");
+	if(t.innerHTML=="마커 옮기기"){
+		t.textContent = '마커 옮기지않기';
+		
+	}
+	else if(t.innerHTML=="마커 옮기지않기"){
+		t.textContent = '마커 옮기기';
 
-
-var koreaDic; // 응답(response)변수 저장
-map.on ('click',function(e) { 
-
-	console.log("click");
-	
-    var viewResolution =  /** @type {number} */ (view.getResolution());
-    var url = wmsSource.getGetFeatureInfoUrl(
-        e.coordinate,
-        viewResolution,
-        'EPSG:3857',
-        { 'INFO_FORMAT': 'application/json', 'FEATURE_COUNT': 1}
-    );
-	
-    if (url) {
-    	getFeatureInfo(url)
-    	.then(jsonResponse => {
-            koreaDic = jsonResponse.features[0];
-//            console.log(koreaDic);
-            const koreaDicProp = koreaDic.properties;
-            const koreaDic_SigCd = koreaDicProp[Object.keys(koreaDicProp)[0]];
-            const koreaDic_SigKorNm = koreaDic.id.split('.')[1]; // id값
-// console.log(koreaDic_SigCd);
-// console.log(koreaDic_SigKorNm);
-
-        	// 검색 키워드를 도시명으로 설정(변경)
-        	searchCondition = $("#searchCondition").val(1).prop("selected",true);
-        	// 검색창에 koreaDic_SigKorNm 값을 설정
-        	searchKeyword = $("#searchKeyword").val(koreaDicProp[Object.keys(koreaDicProp)[2]]);
-            link_page(1, searchCondition, searchKeyword);
-          })
-          .catch(error => console.error(error));
-    }
-//    console.log(koreaDic);
-    e.stopPropagation();
-    
-    // wmsSource.updateParams({ 'CQL_FILTER': `[sig_cd= ${koreaDic_SigCd}]` });
-	// 클릭한 행정구역만 필터링하기
-
-    //행정경계 별 클릭 위치 주소 역지오코딩
-	var geoContent = document.getElementById("geoCoding-content"); // 팝업창 문구
-	
-	//클릭 시, 브이월크 역지오 코딩 API 좌표 -> 주소 얻기
-	var coordinate = e.coordinate;
-	// 좌표계 변환
-	var wgs84 = proj4('EPSG:3857','EPSG:4326', [ coordinate[0],coordinate[1] ]);
-
-	var pre_Lati = wgs84[1]; // 위도
-	var pre_Long = wgs84[0]; // 경도
-    
-	const point = `${pre_Long},${pre_Lati}`;
-//	console.log(point);
-	
-	//좌표 -> 주소 얻기
-	$.ajax({
-	    url: "https://api.vworld.kr/req/address?",
-	    type: "GET",
-	    dataType: 'jsonp',
-	    data: {
-	        service: "address",
-	        request: "getaddress",
-	        version: "2.0",
-	        crs: "EPSG:4326",
-	        type: "BOTH",
-	        point: point,
-	        format: "json",
-	        errorformat: "json",
-	        key: "ED44681F-5399-33EF-BD09-94203C9E7C94",
-	    },
-	    success: function(result) {
-//	    	console.log(result.response.result[0].text);
-	    	geoContent.innerHTML = '<span>' + result.response.result[0].text + '</span>';
-//	        console.log(result);
-	    },
-	    error: function(error) {
-	        console.log("error");
-	    },
-	});
-
-});
+		
+	}
+}

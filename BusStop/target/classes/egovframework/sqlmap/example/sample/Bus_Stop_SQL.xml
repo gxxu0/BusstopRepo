@@ -137,7 +137,7 @@
 
 	<select id="busDAO.selectBusstopCityList" parameterClass="pageVO" resultClass="HashMap">
         <![CDATA[
-            SELECT CITY_CD, MAX(CITY_NAME)
+            SELECT CITY_CD, MAX(CITY_NAME) as CITY_NAME, COUNT(CITY_CD)
             FROM BUSSTOP
 			WHERE 1=1
 			GROUP BY CITY_CD
