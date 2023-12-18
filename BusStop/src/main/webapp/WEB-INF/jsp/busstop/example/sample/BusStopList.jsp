@@ -278,6 +278,7 @@
 		<select id="baseLayer"></select>
 		<button onclick="mapDicOnOff()" id="mapDicOnOff" class="mapDicOnOff" title="행정경계 on/off">행정경계 끄기</button>
 		<button onclick="move()" id="moveOnOff" class="moveOnOff" title="마커있는 곳으로 시점 이동">마커 위치로 시점 이동</button>
+		<div  id="dragONOff" class="dragONOff" title="지도 클릭 - [마커 옮기지않기]모드 - 이동 위치 선택 - 수정하기">드래그 on</div>
 		
 		<div id="mapContent" title="지도 설명"></div>
 		<div id="mapContent-text" style="display: none;">

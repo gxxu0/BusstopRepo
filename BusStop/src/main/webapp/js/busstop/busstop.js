@@ -3,6 +3,7 @@ $(document).ready(function() {
 	link_page();
 	init();
 	siBSDMF();
+
 	
 });
 $('#marker-popup-close').on('click',function (e) {
@@ -278,6 +279,8 @@ function siBSDMF() {
 	    console.log('siBGDM2',siBGDM2);
 
 }
+
+var globalData;
 // 페이지 이동
 function link_page(pageNo, searchCondition, searchKeyword) {
 
@@ -481,7 +484,7 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 					$(this).parent().next().next().css("display", 'none'); 
 				}
 			})
-			$('.memList #nodeId').click(function(){
+			$('.memList .no').click(function(){
 				console.log($(this).siblings('#gpsLati')[0].innerText);
 				var centerLati = $(this).siblings('#gpsLati')[0].innerText;
 				var centerLong = $(this).siblings('#gpsLong')[0].innerText;
@@ -547,6 +550,7 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 		success : function(data) {
 		siBSDMF();
 		console.log('siBGDM2',siBGDM2);
+
 		console.log(data);
 		var cityListData = data[0].cityList;
 		var cityArr = [];
@@ -713,6 +717,7 @@ function link_page(pageNo, searchCondition, searchKeyword) {
 			console.log("error");
 		},
 	})
+	
 };
 //시점 이동 (게시판의 맨 첫번째 항목 위치 기준)
 function move(){
@@ -932,6 +937,8 @@ function selectOptionMap(map) {
 var point_feature;
 var markerSource;
 var markerLayer;
+
+var test;
 function addMarkerMulti(map) {
 	// 게시판 데이터를 Element로 가져오기
 	var eleNodeId = document.getElementsByClassName('nodeId');
@@ -980,6 +987,8 @@ function addMarkerMulti(map) {
 			dataObj : dataObj[i]
 
 		});
+
+		test = point_feature;
 		console.log('point_feature',point_feature);
 		// addFeature로 markerSource에 등록한 point를 담는다.
 		markerSource.addFeature(point_feature);
@@ -1016,9 +1025,8 @@ function addMarkerMulti(map) {
 var exist_dataobj;
 var exist_name;
 var exist_id;
-
+var point_feature2;
 var t = document.getElementById("markerONOff");
-
 map.on('click', function (e) {
 	if(t.innerHTML !== "마커 옮기기"){
 		
@@ -1028,6 +1036,7 @@ map.on('click', function (e) {
 	            return feature;
 	        }
 	    });
+
 	    if (markerClicked) {
 	        exist_dataobj = clickedFeature.getProperties().dataObj;
 	        exist_name = clickedFeature.getProperties().id;
@@ -1042,15 +1051,57 @@ map.on('click', function (e) {
 		    	var clickedCoordinate = e.coordinate;
 			    clickedWgs84 = proj4('EPSG:3857', 'EPSG:4326', [clickedCoordinate[0], clickedCoordinate[1]]);
 			    console.log('변경 위치 : ', clickedWgs84);
-			    var point_feature = new ol.Feature({
+			    console.log('clickedCoordinate 위치 : ', clickedCoordinate);
+			    point_feature2 = new ol.Feature({
 			        geometry: new ol.geom.Point(clickedWgs84).transform('EPSG:4326', 'EPSG:3857'),
 			        id: exist_id,
 			        name: exist_name,
 			        dataObj: exist_dataobj
 			    });
-			    markerSource.addFeature(point_feature);
+			    markerSource.addFeature(point_feature2);
 			    markerLayer.setSource(markerSource);
-			    
+			    $('#dragONOff').click(function(){
+			    	 $('#dragONOff').css('color','red');
+			    	 $('#dragONOff').toggleClass('active');
+				    	if($('#dragONOff').hasClass('active')){
+				    		var vectorLayer = new ol.layer.Vector({
+					            source: new ol.source.Vector({
+					                features: [point_feature2]
+					            })
+					        });
+					        var dragInteraction = new ol.interaction.Modify({
+					            features: new ol.Collection([point_feature2]),
+					        });
+					        dragInteraction.on('modifyend',function(){
+					        	//수정하기 뜸
+							    var geometry = point_feature.getGeometry();
+
+								const dataObj = point_feature.get('dataObj');
+								
+								var wgs84 = proj4('EPSG:3857','EPSG:4326', clickedWgs84);
+
+								var frm = document.frmPopup;
+								frm.nodeId.value = dataObj.llId;
+							    console.log('frm : ', frm);
+								
+								var url = "/updateBusView.do";
+								var title = "testpop";
+								var status = "toolbar=no, width=700, height=660, directories=no, status=no,    scrollorbars=no, resizable=no";
+								window.open("", title, status);
+								frm.target = title;
+								frm.action = url;
+								frm.gpsLati.value = clickedWgs84[1];
+								frm.gpsLong.value = clickedWgs84[0];
+								frm.method = "post";
+								frm.submit();
+					        },point_feature2);
+
+					        map.addLayer(vectorLayer);
+					        map.addInteraction(dragInteraction);
+					        
+				    	}
+			        
+			    })
 			    //수정하기 뜸
 			    var geometry = point_feature.getGeometry();
 

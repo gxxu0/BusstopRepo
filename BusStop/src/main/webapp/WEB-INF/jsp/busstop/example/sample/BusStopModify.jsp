@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function hasNumber(str) {
         return /\d/.test(str);
     }
-
+	 //법정동
     function siBSDMF() {
         var xhr = new XMLHttpRequest();
         var url = 'https://apis.data.go.kr/B553077/api/open/sdsc2/baroApi';
@@ -70,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("문자열에 숫자가 포함되어 있습니다.");
             const stringWithoutComma = checkString.replace(/,/g, '');
           
-
             // siBGDM2 배열을 순회하며 검색
             for (let i = 0; i < siBGDM2.length; i++) {
                 const ldongCdValue = siBGDM2[i].ldongCd.slice(0, 8);
@@ -161,9 +160,7 @@ function sidoMF() {
 }
 
 var sidoM = sidoM2;
-
-
-
+//소상공인시장진흥공단_상가(상권)정보_API - 시군구 조회
 function siGGMF() {
 
 	  var xhr = new XMLHttpRequest();
@@ -243,6 +240,9 @@ function fetchDataFromAPI() {
       fetchData();
   }
 
+
+  console.log('siGGM2',siGGM2);
+  console.log('dataObj',dataObj);
   function fetchDataForAllLocations() {
       var currentIndex = 0;
       function fetchNextLocation() {
@@ -370,60 +370,70 @@ function updateData() {
       const after_optionSelect_3 = selectedDataObj.kValue; //op3
       const after_optionSelect_4 = selectedDataObj.kValue; //op4
 
-      console.log('after_optionSelect_1', after_optionSelect_1);
-      console.log('after_optionSelect_2', after_optionSelect_2);
 
       function groupBySggCd(data) {
-          //console.log('data', data);
-          data = data.row;
-          return data.reduce((result, current) => {
-        	  console.log('current',current);
-              const sggCd = current.sgg_cd; // 시군구 코드
-              const umdCd = current.umd_cd; // 읍면동 코드
-              const plusCd = current.sido_cd+''+current.sgg_cd; // 시도+시군구
-              const plusCd_umd = current.sido_cd+''+current.sgg_cd+''+current.umd_cd; // 시도+시군구+읍면동
-              const districtName = current.locallow_nm; // 최하위지역명
-              //console.log(sggCd, districtName);
-              const locataddArray = current.locatadd_nm.split(" "); // 지역주소명 split
+    	    // Assuming 'data.row' is an array of objects
+    	    const rows = data.row;
 
-              //console.log('locataddArray',locataddArray);
-              if (locataddArray.length >= 3) {
-                  const key = locataddArray[1];
-                  var value;
+    	    return rows.reduce((result, current) => {
+    	        const sggCd = current.sgg_cd;
+    	        const umdCd = current.umd_cd;
+    	        const plusCd = current.sido_cd + '' + current.sgg_cd;
+    	        const plusCd_umd = current.sido_cd + '' + current.sgg_cd + '' + current.umd_cd;
+    	        const locataddArray = current.locatadd_nm.split(" ");
 
-                  if (locataddArray[3] == undefined) {
-                      value = locataddArray[2];
-                  } else if (locataddArray.length == 4) {
-                      value = locataddArray[2] + " " + locataddArray[3];
-                  } else if (locataddArray.length == 5) {
-                      value = locataddArray[2] + " " + locataddArray[3] + " " + locataddArray[4];
-                  } else if (locataddArray.length == 6) {
-                      value = locataddArray[2] + " " + locataddArray[3] + " " + locataddArray[4] + " " + locataddArray[5];
-                  }
+    	        if (locataddArray.length >= 3) {
+    	            const key = locataddArray[1];
+    	            const value = locataddArray.slice(2).join(" ");
 
-                  if (!result[sggCd]) {
-                      result[sggCd] = {};
-                  }
+    	            // Using object destructuring to simplify the code
+    	            result[sggCd] = result[sggCd] || {};
+    	            result[sggCd][key] = result[sggCd][key] || [];
+    	            
+    	            // Check if the value is not already present in the array
+    	            const isValuePresent = result[sggCd][key].some(item => item.value === value);
+    	            
+    	            if (!isValuePresent) {
+    	                result[sggCd][key].push({ value, umdCd, plusCd, plusCd_umd });
+    	            }
+    	        }
 
-                  if (!result[sggCd][key]) {
-                      result[sggCd][key] = [];
-                  }
-                  result[sggCd][key].push({value,umdCd,plusCd,plusCd_umd});
-              }
+    	        return result;
+    	    }, {});
+    	}
 
-              return result;
-          }, {});
-      }
-
-      const groupedJson = groupBySggCd(after_optionSelect_1);
-      console.log('groupedJson', groupedJson);
-
+    	const groupedJson = groupBySggCd(after_optionSelect_1);
+    	console.log('groupedJson', groupedJson);
+    	
       var values = Object.values(groupedJson);
-      console.log(values);
+      console.log('values',values);
+      
+      const groupedData = {};
 
-      const op2Cd = Object.keys(groupedJson); //시군구
-      //        console.log(op2Cd);
-      const op2 = [...new Set(Object.values(groupedJson).map(entry => Object.keys(entry)[0]))]; //시군구
+      values.forEach(entry => {
+        const cityName = Object.keys(entry)[0];
+        const cityArray = entry[cityName];
+
+        if (groupedData.hasOwnProperty(cityName)) {
+          if (cityArray.length >= 2) {
+            groupedData[cityName][0] = groupedData[cityName][0].concat(cityArray);
+          } else {
+            groupedData[cityName].push(cityArray);
+          }
+        } else {
+          groupedData[cityName] = [cityArray];
+        }
+      });
+
+      console.log('groupedData',groupedData);
+      values = Object.values(groupedData);
+      console.log('values',values);
+      
+      const op2Cd = Object.keys(groupedData); //시군구
+console.log(op2Cd);
+      const op2 = op2Cd; //시군구
+
+console.log(op2);
       var op3 = values.map(entry => entry[Object.keys(entry)[0]]); //읍면동리
       //시군구
       var option2 = '' ;
@@ -484,14 +494,18 @@ function updateData() {
                       optionSelect_4.appendChild(option4);
                   }
                   textInputBox_5.value = document.getElementById('sidoOp2').value;
+                  
               }
           }
       });
+
+      
   }
 
 }
 
 sidoMF();
+
 
 
 
